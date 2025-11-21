@@ -4,7 +4,7 @@ pipeline {
     environment {
         REGISTRY = "docker.io"
         IMAGE_NAME = "saiprasad361/frontend"
-        KUBECONFIG = "/etc/rancher/rke2/rke2.yaml"
+        KUBECONFIG = "/var/lib/jenkins/.kube/config"
     }
 
     stages {
