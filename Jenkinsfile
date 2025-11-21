@@ -19,14 +19,14 @@ pipeline {
         stage('Build Image') {
             steps {
                 sh """
-                podman build -t ${IMAGE_NAME}:latest .
+                sudo podman build -t ${IMAGE_NAME}:latest .
                 """
             }
         }
 
         stage('Login to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'DOCKER_PASS')]) {
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'DOCKER_PASS')]) {
                     sh """
                     echo $DOCKER_PASS | podman login -u saiprasad361 --password-stdin docker.io
                     """
@@ -37,7 +37,7 @@ pipeline {
         stage('Push Image') {
             steps {
                 sh """
-                podman push ${IMAGE_NAME}:latest
+                sudo podman push ${IMAGE_NAME}:latest
                 """
             }
         }
