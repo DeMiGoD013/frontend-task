@@ -8,7 +8,7 @@ pipeline {
     }
 
     stages {
-        
+
         stage('Checkout Code') {
             steps {
                 git branch: 'main',
@@ -26,9 +26,9 @@ pipeline {
 
         stage('Login to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'DOCKER_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh """
-                    echo $DOCKER_PASS | podman login -u saiprasad361 --password-stdin docker.io
+                    echo "$DOCKER_PASS" | sudo podman login -u "$DOCKER_USER" --password-stdin docker.io
                     """
                 }
             }
